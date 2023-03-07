@@ -18,15 +18,19 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { useState } from "react";
 
+// rapidApiKey
 const apiKey = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
 export default function Index() {
   const [searchResults, setSearchResults] = useState(null);
 
+  // Function to handle search query
   async function onSearch(values, actions) {
     let query = values.searchQuery;
 
+    // Check if search query is not empty
     if (query.length) {
+      // Set options for the request to the Shazam API
       let options = {
         method: "GET",
         url: "https://shazam.p.rapidapi.com/search",
@@ -37,6 +41,7 @@ export default function Index() {
         },
       };
 
+      // Send a request to the Shazam API and set the search results state
       await axios
         .request(options)
         .then(function (response) {
@@ -51,8 +56,10 @@ export default function Index() {
     }
   }
 
+  // Render 
   return (
     <Box maxW="800px" mx="auto" px="4">
+      {/* Use Formik to handle the search form */}
       <Formik
         initialValues={{
           searchQuery: "",
@@ -88,8 +95,10 @@ export default function Index() {
         )}
       </Formik>
 
+      {/* If there are search results, render them */}
       {searchResults ? (
         <Stack spacing="4">
+          {/* If there are song results, render them */}
           {searchResults.tracks.hits.length > 0 && (
             <Box>
               <Heading size="md" my="5">
@@ -120,7 +129,7 @@ export default function Index() {
               </SimpleGrid>
             </Box>
           )}
-
+          {/* If there are artist results, render them */}
           {searchResults.artists.hits.length > 0 && (
             <Box>
               <Heading size="md" my="5">
