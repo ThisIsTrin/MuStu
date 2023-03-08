@@ -17,6 +17,7 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import React from "react";
 import { useState } from "react";
+import { DarkModeSwitch } from "../components/DarkModeSwitch";
 
 // rapidApiKey
 const apiKey = process.env.NEXT_PUBLIC_RAPID_API_KEY;
@@ -94,6 +95,8 @@ export default function Index() {
           </Form>
         )}
       </Formik>
+
+      <DarkModeSwitch />
 
       {/* If there are search results, render them */}
       {searchResults ? (
